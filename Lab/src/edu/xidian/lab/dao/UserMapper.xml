@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="edu.xidian.lab.dao.UserMapper">
+  
+  <resultMap id="UserResultMap" type="edu.xidian.lab.pojo.User">
+     <id property="id" column="user_id"></id>
+     <result property="username" column="user_name" />
+     <result property="number" column="u_number" />
+     <result property="status" column="u_status" />
+     <result property="department" column="u_department" />
+     <result property="intime" column="intime" />
+     <result property="office" column="office" />
+     <result property="limit1" column="limit1" />
+     <result property="limit2" column="limit2" />
+     <result property="limit3" column="limit3" />
+     <result property="cash"   column="cash" />
+     
+  </resultMap>
+  
+  <select id="findUserById" parameterType="java.lang.Integer" resultMap="UserResultMap">
+    select * from lab_user
+    where user_id = #{id} 
+  </select>
+  
+  <select id="findUserByNumber" parameterType="java.lang.String" resultMap="UserResultMap">
+    select * from lab_user
+    where u_number = #{number}
+  </select>
+  
+  <select id="findUserByName" parameterType="java.lang.String" resultMap="UserResultMap">
+    select * from lab_user
+    where user_name = #{username}
+  </select>
+  
+  <select id="findUserByOffice" parameterType="java.lang.String" resultMap="UserResultMap">
+    select * from lab_user
+    where office = #{office}
+  </select>
+  <select id="findUserCount" parameterType="edu.xidian.lab.util.PageBean" resultType="java.lang.Integer">
+    select count(*) from lab_user
+  </select>
+  
+  <select id="findByPage" parameterType="edu.xidian.lab.util.PageBean" resultMap="UserResultMap">
+    select *
+    from lab_user
+    order by user_id
+    limit #{start} , #{pageSize} 
+  </select>
+  <!-- 更新用户的姓名，工资号， 状态，学院 -->
+  <update id="updateUser" parameterType="edu.xidian.lab.pojo.User">
+    update lab_user
+    set user_name = #{username}, u_number = #{number}, u_status = #{status} , intime = #{intime},
+        u_department = #{department}
+    where user_id = #{id}
+  </update>
+  
+  <delete id="delUserById" parameterType="java.lang.Integer">
+    delete from lab_user 
+    where user_id = #{id}
+  </delete>
+  
+  <insert id="addUser" parameterType="edu.xidian.lab.pojo.User">
+     insert into lab_user(user_name, u_number, u_status, u_department, intime, office, limit1, limit2, limit3, cash)
+     values (#{username}, #{number}, #{status}, #{department}, #{intime}, #{office}, #{limit1}, #{limit2}, #{limit3}, #{cash})
+  </insert>
+  
+</mapper>

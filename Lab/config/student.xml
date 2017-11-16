@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<excel id="student" code="student" name="学生信息导入">
+    <colgroup>
+        <col index="A" width='17em'></col>
+        <col index="B" width='17em'></col>
+        <col index="C" width='17em'></col>
+        <col index="D" width='17em'></col>
+        <col index="E" width='17em'></col>
+              
+    </colgroup>
+    <title>
+        <tr height="16px">
+            <td rowspan="1" colspan="6" value="刷卡信息表" />
+        </tr>
+    </title>
+    <thead>
+        <tr height="16px">
+        	<th value="编号" />
+            <th value="姓名" />
+            <th value="类型" />
+            <th value="性别" />
+            <th value="刷卡时间" />
+                    
+        </tr>
+    </thead>
+    <tbody>
+        <tr height="16px" firstrow="2" firstcol="0" repeat="5">
+            <td type="string" isnullable="false" maxlength="30" /><!--用户编号 -->
+            <td type="string" isnullable="false" maxlength="50" /><!--姓名 -->
+            <td type="String" isnullable="false" maxlength="50" /><!--年龄 -->
+            <td type="enum" format="男,女" isnullable="true" /><!--性别 -->
+            <td type="date" isnullable="false" maxlength="30" /><!--出生日期 -->
+           
+        </tr>
+    </tbody>
+</excel>

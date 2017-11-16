@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="edu.xidian.lab.dao.AdminMapper">
+   
+   <resultMap id="AdminResultMap" type="edu.xidian.lab.pojo.Admin">
+      <id property="id" column="admin_id"></id>
+      <result property="username" column="admin_username"/>
+      <result property="password" column="admin_password"/>
+      <result property="authority" column="admin_authority" />
+   </resultMap>
+
+  <select id="findAdminById" parameterType="java.lang.Integer" resultMap="AdminResultMap">
+     select * from lab_admin
+     where admin_id = #{id}
+     
+  </select>
+  
+  <select id="findByPage"  parameterType="edu.xidian.lab.util.PageBean" resultMap="AdminResultMap">
+   select * from lab_admin
+   order by admin_id
+   limit #{start} , #{pageSize} 
+  </select>
+  
+  <select id="findAdminCount" parameterType="edu.xidian.lab.util.PageBean" resultType="java.lang.Integer">
+   select count(*) from lab_admin
+  </select>
+  
+  <select id="findAdminByName" parameterType="java.lang.String" resultMap="AdminResultMap">
+    select * from lab_admin 
+    where admin_username = #{username}
+  </select>
+  
+  <update id="updateAdmin" parameterType="edu.xidian.lab.pojo.Admin">
+     update lab_admin 
+     set admin_username = #{username}, admin_password = #{password}
+     where admin_id = #{id}
+  </update>
+  
+  <delete id="delAdminById" parameterType="java.lang.Integer">
+    delete from lab_admin where admin_id = #{id}
+  </delete>
+  
+  <insert id="addAdmin" parameterType="edu.xidian.lab.pojo.Admin">
+     insert into lab_admin(admin_username, admin_password, admin_authority)
+     values (#{username}, #{password}, #{authority})
+  </insert>
+  
+  <select id="adminLogin" resultMap="AdminResultMap">
+     select * from lab_admin
+     where admin_username = #{username} and admin_password = #{password}
+  </select>
+</mapper>
